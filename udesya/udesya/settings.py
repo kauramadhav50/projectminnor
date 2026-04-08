@@ -12,11 +12,14 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
-import cloudinary_storage
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -28,7 +31,7 @@ SECRET_KEY = 'django-insecure-q9iz4$aio_rht7#)8ed)&(_=$e*h=32-bk3j_p9e6cu@e(o66_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://minipro-519d.onrender.com/', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['minipro-519d.onrender.com/', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -139,12 +142,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -169,11 +167,15 @@ SIMPLE_JWT = {
 }
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'du11x1fnu',
-    'API_KEY': '145847597443849',
-    'API_SECRET': '40uv6HyEtqRg7_lSPpdn7sYVh2w',
-}
+cloudinary.config(
+    cloud_name= 'du11x1fnu',
+    api_key= '145847597443849',
+    api_secret= '40uv6HyEtqRg7_lSPpdn7sYVh2w',
+)
 
 
+STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles'
+
+MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
